@@ -1,4 +1,4 @@
-function [centroid,dis_calculator] = DoubleKMC2(X,s,k,m,dis_calculator)
+function [centroid] = DoubleKMC2(X,s,k,m,dis_calculator)
     % X: dxn
     % s: sample number
     % m: chain length
@@ -19,11 +19,11 @@ function [centroid,dis_calculator] = DoubleKMC2(X,s,k,m,dis_calculator)
     [~,p] = min(D);
     I = zeros(size(D)); % I: C2xC1 -> sxs
     I(sub2ind(size(D),1:s,p)) = 1; % here s is the size of C2
-    w = sum(I); % C1 size
+    w = sum(I); % size of C1
     w = w + 1;
     
     % run weighted k-means
-    options.weight = w';
+    options.weight = w.';
     options.careful = true;
-    [label, centroid, dis,dis_calculator] = fkmeans(C1', k,dis_calculator,options);
+    [label, centroid, dis] = fkmeans(C1.', k, options);
     

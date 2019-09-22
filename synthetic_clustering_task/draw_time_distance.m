@@ -1,14 +1,15 @@
 data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
 algorithms = ["kmc2","uniform-wo-wk","Double-kmc2"];
 num_points = [5250,7500,10000,15000,20000];
-data_type = "sum-squared-distances";
-% data_type = "running-time";
+% data_type = "sum-squared-distances";
+% field_type = 'sum_squared_distances';
+data_type = "running-time";
+field_type = 'running_time';
 data = zeros(length(algorithms),length(data_names));
 for i = 1:length(data_names)
     for j = 1:length(algorithms)
-        v_struct = load(strcat(data_names(i),'/',algorithms(j),'_',data_type,'.mat'));
-        value = getfield(v_struct,'sum_squared_distances');
-%         value = getfield(v_struct,'running_time');
+        v_struct = load(join([data_names(i),algorithms(j),data_type,'.mat'],"_"));
+        value = getfield(v_struct,field_type);
         data(j,i) = mean(value);
     end
 end
