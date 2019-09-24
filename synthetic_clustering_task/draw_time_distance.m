@@ -1,5 +1,6 @@
 data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
 algorithms = ["kmc2","uniform-wo-wk","Double-kmc2"];
+% algorithms = ["kmc2"];
 num_points = [5250,7500,10000,15000,20000];
 % data_type = "sum-squared-distances";
 % field_type = 'sum_squared_distances';
@@ -21,5 +22,10 @@ set(p,{'MarkerFaceColor'},{'b';'k';'r'});
 
 legend('kmc2','uni-w/o-replace','Double-kmc2','Location','northwest');
 xlabel('number of points');
-ylabel(data_type);
+
+if strcmp(data_type,"running-time")
+    ylabel('number of distance evaluations');
+else
+    ylabel(data_type);
+end
 saveas(f,strcat(data_type,'.jpg'));

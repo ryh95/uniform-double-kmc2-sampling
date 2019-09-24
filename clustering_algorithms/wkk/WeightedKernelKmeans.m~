@@ -7,7 +7,7 @@ function varargout = WeightedKernelKmeans(W_diag,K,k,t_max,init_labels,dis_calcu
 % ------------------------------------------------
 % output:
 % p: label vector, [size(K,1),1]
-% obj: sum of kernelized squared distances, p->obj
+% obj: sum of kernelized squared distances
 % D: all kernelized squared distances matrix, [size(K,1),size(K,1)], p->D
 % min(D,[],2) = p
 

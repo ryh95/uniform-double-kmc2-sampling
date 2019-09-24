@@ -1,4 +1,4 @@
-function label = init_label(n,k,method)
+function [label,dis_calculator] = init_label(n,k,method,dis_calculator)
     if strcmp(method.name,'random-balance')
 
         label = zeros(1,n);
@@ -19,15 +19,23 @@ function label = init_label(n,k,method)
     elseif strcmp(method.name,'knkmeans++')
         
         % The kernel k-means++ initialization.
+        % can be weighted kernel k-means++ initialization if weights
+        % specified
         C = zeros(1,k);
         C(1) = datasample(1:n,1);
         L = ones(1,n);
         K = method.K;
+        W = ones(1,n);
+        if isfield(method,'W')
+            W = method.W;
+        end
         for i = 2:k
             % D is the distance that a point to its nearest center 
-            D = diag(K)' -2 * K(sub2ind(size(K),1:n,C(L))) + K(sub2ind(size(K),C(L),C(L)));
-            assert(any(D<0)==false,'negative distance');
+            D = W.*(diag(K)' -2 * K(sub2ind(size(K),1:n,C(L))) + K(sub2ind(size(K),C(L),C(L))));
+            dis_calculator = dis_calculator + numel(D);
+            assert(all(D>=0),'negative distance');
             C(i) = datasample(1:n,1,'Weights',full(D));
+            % todo: optimize the following
             [~,L] = max(bsxfun(@minus,2*K(1:n,C(1:i))',K(sub2ind(size(K),C(1:i),C(1:i)))'));
         end
         label = L;

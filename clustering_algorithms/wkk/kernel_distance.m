@@ -1,4 +1,4 @@
-function Distance = kernel_distance(row_num,k,W_diag,K,I)
+function [Distance,dis_calculator_] = kernel_distance(row_num,k,W_diag,K,I,dis_calculator)
 % i: index that to compute distance
 % c: cluster index
 % row_num: row id to compute distance, vector
@@ -11,6 +11,10 @@ function Distance = kernel_distance(row_num,k,W_diag,K,I)
 % d: real positive number
 
 % compute the denominator of second term 
+    dis_calculator_ = 0;
+    if nargin == 6
+        dis_calculator_ = dis_calculator;
+    end
     second_denominator = zeros(1,k);
     for i = 1:k
         second_denominator(i) = sum(W_diag(I{i,1}));
@@ -27,6 +31,7 @@ function Distance = kernel_distance(row_num,k,W_diag,K,I)
 
     % compute distances
     Distance = zeros(size(W_diag,1),k);
+    dis_calculator_ = dis_calculator_ + numel(Distance);
     
     [j_matrix,mask] = padcat(I{:});
     cluster_num = cellfun(@length,I);

@@ -157,7 +157,6 @@ end
 idx(1) = randsample(n,1,true,w_);
 S(1,:) = X(idx(1),:);
 for i = 2:k
-%     Ds = sqrdistance(S(i-1,:),X);
     Ds = pdist2(S(i-1,:),X,'squaredeuclidean')';
     assert(all(Ds>=0));
     dis_calculator = dis_calculator + numel(Ds);

@@ -4,7 +4,7 @@ addpath(genpath('../clustering_algorithms/kmc2'));
 
 data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
 % algorithms = ["kmc2","uniform-wo-wk","Double-kmc2"];
-algorithms = ["Double-kmc2"];
+algorithms = ["uniform-wo-wk","Double-kmc2"];
 % data_names = ["b2-random-20"];
 
 for data_name = data_names
@@ -50,15 +50,18 @@ for data_name = data_names
         for i = 1:repeat
             dis_calculator = 0;
             if strcmp(algorithm,'kmc2')
+%                 tic;
                 [centers,sample_index,dis_calculator] = KMC2(X,k,chain_length,dis_calculator);
                 running_time(i) = dis_calculator;
             elseif strcmp(algorithm,'uniform-wo-wk')
+%                 tic;
                 X_sample = datasample(X,m,2,'Replace',false);
                 options.careful = true;
                 [label, centers, dis, dis_calculator] = fkmeans(X_sample.', k,dis_calculator,options);
                 centers = centers';
                 running_time(i) = dis_calculator;
             elseif strcmp(algorithm,'Double-kmc2')
+%                 tic;
                 [centers,dis_calculator] = DoubleKMC2(X,m,k,chain_length,dis_calculator);
                 centers = centers.';
                 running_time(i) = dis_calculator;
