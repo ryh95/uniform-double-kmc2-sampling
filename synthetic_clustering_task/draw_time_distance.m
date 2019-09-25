@@ -1,7 +1,9 @@
-data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
+% data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
+data_names = ["bio_train","rna","poker-hand"];
 algorithms = ["kmc2","uniform-wo-wk","Double-kmc2"];
 % algorithms = ["kmc2"];
-num_points = [5250,7500,10000,15000,20000];
+% num_points = [5250,7500,10000,15000,20000];
+num_points = [145751,488565,1000000];
 % data_type = "sum-squared-distances";
 % field_type = 'sum_squared_distances';
 data_type = "running-time";
@@ -15,7 +17,7 @@ for i = 1:length(data_names)
     end
 end
 f = figure('visible','off');
-p = plot(num_points,data,'LineWidth',1,'MarkerSize',4);
+p = plot(num_points,data','LineWidth',1,'MarkerSize',4);
 set(p,{'color'},{'b';'k';'r'});
 set(p,{'Marker'},{'o';'s';'v'});
 set(p,{'MarkerFaceColor'},{'b';'k';'r'});
@@ -26,6 +28,6 @@ xlabel('number of points');
 if strcmp(data_type,"running-time")
     ylabel('number of distance evaluations');
 else
-    ylabel(data_type);
+    ylabel('sum of squared distances');
 end
 saveas(f,strcat(data_type,'.jpg'));

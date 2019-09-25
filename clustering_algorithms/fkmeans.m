@@ -1,4 +1,4 @@
-function [label, centroid, dis, dis_calculator] = fkmeans(X, k, dis_calculator, options)
+function [label, centroid, dis, dis_calculator] = fkmeans(X, k, n_iter, dis_calculator, options)
 % FKMEANS Fast K-means with optional weighting and careful initialization.
 % [L, C, D] = FKMEANS(X, k) partitions the vectors in the n-by-p matrix X
 % into k (or, rarely, fewer) clusters by applying the well known batch
@@ -73,9 +73,10 @@ end
 [~,label] = max(bsxfun(@minus,k*X',0.5*sum(k.^2,2)));
 k = size(k,1);
 last = 0;
+iter = 0;
 if ~weight
     % code defactoring for speed
-    while any(label ~= last)
+    while any(label ~= last) && iter < n_iter
         % remove empty clusters
         [~,~,label] = unique(label);
         % transform label into indicator matrix
@@ -88,10 +89,11 @@ if ~weight
         % assign points to their nearest centroid
         last = label.';
         [~,label] = max(distances);
+        iter = iter + 1;
     end
     dis = ind*(sum(X.^2,2) - 2*max(distances)');
 else
-    while any(label ~= last)
+    while any(label ~= last) && iter < n_iter
         % remove empty clusters
         [~,~,label] = unique(label);
         % transform label into indicator matrix
@@ -104,6 +106,7 @@ else
         % assign points to their nearest centroid
         last = label.';
         [~,label] = max(distances);
+        iter = iter + 1;
     end
     dis = ind*(sum(X.^2,2) - 2*max(distances)');
 end

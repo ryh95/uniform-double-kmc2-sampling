@@ -1,4 +1,4 @@
-function [centroid,dis_calculator] = DoubleKMC2(X,s,k,m,dis_calculator)
+function [centroid,dis_calculator] = DoubleKMC2(X,s,k,m,n_iter,dis_calculator)
     % X: dxn
     % s: sample number
     % m: chain length
@@ -26,5 +26,5 @@ function [centroid,dis_calculator] = DoubleKMC2(X,s,k,m,dis_calculator)
     % run weighted k-means
     options.weight = w';
     options.careful = true;
-    [label, centroid, dis,dis_calculator] = fkmeans(C1', k,dis_calculator,options);
+    [label, centroid, dis,dis_calculator] = fkmeans(C1',k,n_iter,dis_calculator,options);
     
