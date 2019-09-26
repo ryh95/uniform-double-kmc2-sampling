@@ -49,7 +49,7 @@ n = size(X,1);
 % option defaults
 weight = 0; % uniform unit weighting
 careful = 0;% random initialization
-if nargin == 4
+if nargin == 5
     if isfield(options, 'weight')
         weight = options.weight;
     end

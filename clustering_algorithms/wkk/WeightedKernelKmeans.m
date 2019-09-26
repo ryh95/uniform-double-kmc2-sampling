@@ -19,8 +19,8 @@ num_points = size(W_diag,1);
 
 I = 1:k == init_labels';
 
-assert(all(sum(I)) == true,'init cluster has empty cluster');
-assert(all(sum(I,2) == ones(num_points,1)) == true,'at least one point has more than one cluster'); 
+assert(all(sum(I)),'init cluster has empty cluster');
+assert(all(sum(I,2) == ones(num_points,1)),'at least one point has more than one cluster'); 
 nOutputs = nargout;
 varargout = cell(1,nOutputs);
 
