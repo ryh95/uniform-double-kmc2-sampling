@@ -91,6 +91,7 @@ if ~weight
         [~,label] = max(distances);
         iter = iter + 1;
     end
+    ind = sparse(label,1:n,1,k,n,n);
     dis = ind*(sum(X.^2,2) - 2*max(distances)');
 else
     while any(label ~= last) && iter < n_iter
@@ -108,6 +109,7 @@ else
         [~,label] = max(distances);
         iter = iter + 1;
     end
+    ind = sparse(label,1:n,1,k,n,n);
     dis = ind*(sum(X.^2,2) - 2*max(distances)');
 end
 label = label';
