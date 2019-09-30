@@ -2,11 +2,11 @@
 addpath(genpath('../clustering_algorithms/'));
 addpath(genpath('../clustering_algorithms/kmc2'));
 
-% data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
+data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
 % data_names = ["b2-random-20"];
-% algorithms = ["kmc2","uniform-wo-wk","Double-kmc2"];
 algorithms = ["kmc2","uniform-wo-wk","Double-kmc2"];
-data_names = ["poker-hand","bio_train","rna"];
+% algorithms = ["Double-kmc2"];
+% data_names = ["bio_train","rna","poker-hand"];
 
 for data_name = data_names
     
@@ -35,7 +35,7 @@ for data_name = data_names
     elseif strcmp(data_name,'poker-hand')
         X = importdata(strcat('../data/',data_name,'.data'));
         X = X(:,1:end-1);
-        k = 10;
+        k = 200;
     end
     
     X = (X-mean(X))./std(X);
@@ -50,10 +50,10 @@ for data_name = data_names
         % sample number 0.35(Double-kmc2)/0.7(uniform-wo-wk)
         if strcmp(algorithm,'uniform-wo-wk')
             m = floor(0.7*log(n)^4);
-            n_iter = 2000;
+            n_iter = 10;
         elseif strcmp(algorithm,'Double-kmc2')
             m = floor(1.5*log(n)^2);
-            n_iter = 2000;
+            n_iter = 100;
         end
         
         if ~strcmp(algorithm,'kmc2')
