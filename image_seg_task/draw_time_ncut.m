@@ -12,7 +12,7 @@ for i = 1:length(data_names)
         data(j,i) = mean(value);
     end
 end
-f = figure('visible','off');
+f = figure();
 is_bar = true;
 if is_bar
     data_names(1) = "baby";
@@ -28,7 +28,7 @@ else
     set(p,{'Marker'},{'o';'s';'v'});
     set(p,{'MarkerFaceColor'},{'b';'k';'r'});
 
-    legend('uni-w/o-replace','kmc2','Double-kmc2','Location','best');
+    legend('uni-w/o-replace','kmc2','Double-kmc2','Location','northwest');
     xlabel('number of points');
     if strcmp(data_type,"running_time")
         ylabel('number of distance evaluations');
@@ -37,4 +37,4 @@ else
     end
 end
 
-saveas(f,strcat(data_type,'.jpg')); % image-running-time/ncut
+% saveas(f,strcat(data_type,'.jpg')); % image-running-time/ncut

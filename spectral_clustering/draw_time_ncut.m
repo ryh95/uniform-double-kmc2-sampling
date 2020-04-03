@@ -4,7 +4,7 @@ abbr_data_names = ["D1","D2","D3","D4","D5","D6"];
 algorithms = ["wkk","sample_wkk"];
 num_points = [2310,3495,6996,7797,9298,20000];
 % data_type = "running_time"; % running_time/obj
-data_type = "running_time";
+data_type = "Ncuts";
 data = zeros(length(algorithms),length(data_names));
 for i = 1:length(data_names)
     for j = 1:length(algorithms)
@@ -14,7 +14,7 @@ for i = 1:length(data_names)
         data(j,i) = mean(value);
     end
 end
-f = figure('visible','off');
+f = figure();
 is_bar = true;
 if is_bar
     c_data_names = categorical(abbr_data_names);
@@ -37,4 +37,4 @@ else
     end
 end
 
-saveas(f,strcat(data_type,'.jpg')); % image-running-time/ncut
+% saveas(f,strcat(data_type,'.jpg')); % image-running-time/ncut

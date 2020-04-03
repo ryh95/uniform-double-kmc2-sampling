@@ -1,9 +1,9 @@
-% data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
-data_names = ["bio_train","rna","poker-hand"];
+data_names = ["a2","a3","b2-random-10","b2-random-15","b2-random-20"];
+% data_names = ["bio_train","rna","poker-hand"];
 algorithms = ["kmc2","uniform-wo-wk","Double-kmc2"];
 % algorithms = ["kmc2"];
-% num_points = [5250,7500,10000,15000,20000];
-num_points = [145751,488565,1000000];
+num_points = [5250,7500,10000,15000,20000];
+% num_points = [145751,488565,1000000];
 data_type = "sum-squared-distances";
 field_type = 'sum_squared_distances';
 % data_type = "running-time";
@@ -17,7 +17,7 @@ for i = 1:length(data_names)
     end
 end
 is_bar = true;
-f = figure('visible','off');
+f = figure();
 if is_bar
     data_names(1) = "KDD";
     data_names(2) = "RNA";
@@ -43,5 +43,8 @@ else
     legend('kmc2','uni-w/o-replace','Double-kmc2','Location','northwest');
 end
 
-
-saveas(f,strcat(data_type,'.jpg'));
+% crop figure borderline and change config
+% ref: https://www.mathworks.com/matlabcentral/answers/471281-save-plot-with-minimal-white-space-crop-padding
+% ref: https://www.mathworks.com/help/matlab/creating_plots/save-figure-with-minimal-white-space.html
+% my config: crop,font_size 15,font_type dejavu sans
+% saveas(f,strcat(data_type,'.jpg'));
